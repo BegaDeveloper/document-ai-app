@@ -1,0 +1,10 @@
+{
+  "/identitytoolkit.googleapis.com": {
+    "target": "https://identitytoolkit.googleapis.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/identitytoolkit.googleapis.com": ""
+    }
+  }
+}

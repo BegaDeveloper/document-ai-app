@@ -1,0 +1,156 @@
+<div class="main">
+  <form [formGroup]="uploadForm">
+    <div class="center-div">
+      <div class="dropdowns-div">
+        <div class="company">
+          <label class="label-inpt">Company name</label>
+
+          <ethos-field-wrapper
+            addonIcon="ethos-icon-62-user"
+            class="block mt-2"
+          >
+            <ethos-dropdown
+              [disabled]="disableCompanyAndYearInputs"
+              formControlName="company"
+              [options]="companies"
+              [filter]="true"
+            >
+            </ethos-dropdown>
+          </ethos-field-wrapper>
+        </div>
+        <div class="year">
+          <label class="label-inpt">Year</label>
+          <ethos-field-wrapper
+            addonIcon="ethos-icon-62-user"
+            class="block mt-2"
+          >
+            <ethos-dropdown
+              [disabled]="disableCompanyAndYearInputs"
+              formControlName="year"
+              [options]="years"
+              [filter]="false"
+            >
+            </ethos-dropdown>
+          </ethos-field-wrapper>
+        </div>
+      </div>
+    </div>
+    <div class="tables-main">
+      <div class="upload-div container">
+        <div class="btn-div">
+          <p-button
+            label="Choose file"
+            styleClass="my-button"
+            (click)="fileInput.click()"
+            ngClass="{'choose-file-btn': true}"
+          >
+            <span class="material-symbols-outlined choose-file-btn">
+              description
+            </span>
+            &nbsp; &nbsp;
+          </p-button>
+          <input
+            style="display: none"
+            #fileInput
+            type="file"
+            multiple="multiple"
+            (change)="onUpload($event)"
+          />
+        </div>
+        <div
+          class="dropzone"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+        >
+          <span>Choose your files or drop them here</span>
+        </div>
+      </div>
+      <div class="table-overview-div container">
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="font-weight: 700">Document name</th>
+                <th scope="col" style="font-weight: 700">Document type</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+
+            <tbody formArrayName="documents">
+              <ng-container
+                *ngFor="let document of getDocs().controls; let i = index"
+                formGroupName="{{ i }}"
+              >
+                <tr>
+                  <td class="file-p">
+                    {{ getDocName(i) }}
+                  </td>
+                  <td>
+                    <ethos-field-wrapper
+                      addonIcon="ethos-icon-62-user"
+                      class="block mt-2"
+                    >
+                      <ethos-dropdown
+                        formControlName="type"
+                        [options]="documentType"
+                      >
+                      </ethos-dropdown>
+                    </ethos-field-wrapper>
+                  </td>
+                  <td class="file-p">
+                    <img
+                      src="assets/icons/remove_icon.svg"
+                      alt=""
+                      (click)="removeFile(i)"
+                    />
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="submit-btn">
+          <p-button
+            label="Submit"
+            styleClass="my-button"
+            (click)="openModal()"
+            ngClass="{'submit-button': true}"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ethos-dialog
+    [displayDialog]="modalOpen"
+    header="Upload & Set Document Types"
+    saveButtonLabel="Save"
+    [closable]="true"
+    [saveButtonEnabled]="true"
+    [modal]="true"
+  >
+    <div class="modal-content">
+      <p>
+        Before you proceed, please ensure that you have completed the following
+        tasks: <br /><br />
+        1. Upload all required documents for extraction.
+        <br />
+        2. Verify that the document types are correctly set for each uploaded
+        file.
+        <br /><br />
+      </p>
+    </div>
+    <div class="modal-footer">
+      <ethos-save-cancel
+        *ngIf="!isLoading"
+        [saveButtonDisabled]="false"
+        [loading]="false"
+        saveLabel="'Proceed'"
+        cancelLabel="'Cancel'"
+        (save)="onSubmit()"
+        (cancel)="closeModal()"
+      ></ethos-save-cancel>
+      <div *ngIf="isLoading">Loading...</div>
+    </div>
+  </ethos-dialog>
+  <p-toast position="top-right"></p-toast>
+</div>

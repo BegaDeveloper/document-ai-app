@@ -1,0 +1,27 @@
+<div class="auth">
+  <div class="logo-div">
+    <img src="assets/images/logo.svg" alt="" />
+  </div>
+  <div class="container">
+    <div class="main-div">
+      <div class="header">
+        <h1 *ngIf="!recoverMode">Login</h1>
+        <h1 *ngIf="recoverMode">Recover Password</h1>
+      </div>
+      <hr />
+      <div class="form-div">
+        <form [formGroup]="authForm">
+          <div class="inpt-div">
+            <input type="text" pInputText formControlName="email" placeholder="Email" />
+            <input *ngIf="!recoverMode" type="password" pInputText formControlName="password" placeholder="Password" />
+          </div>
+          <button class="submit-btn" (click)="!recoverMode ? submit() : onRecoverPassword()">
+            {{ recoverMode ? "Send Password Recovery" : "Submit" }}
+          </button>
+        </form>
+      </div>
+      <p *ngIf="!recoverMode"><a (click)="toggleRecoverMode()"> Recover</a> your password</p>
+      <p *ngIf="recoverMode"><a (click)="toggleRecoverMode()"> Back</a> to login</p>
+    </div>
+  </div>
+</div>

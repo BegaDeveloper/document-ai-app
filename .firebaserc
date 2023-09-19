@@ -1,0 +1,46 @@
+{
+  "projects": {
+    "etho-infoextrproje-jan23": {
+      "name": "etho-infoextrproje-jan23",
+      "environment": {
+        "firebase": "etho-infoextrproje-jan23"
+      }
+    },
+    "etho-infoextrproje-jan23-stg": {
+      "name": "etho-infoextrproje-jan23-stg",
+      "environment": {
+        "firebase": "etho-infoextrproje-jan23-stg"
+      }
+    }
+  },
+  "targets": {
+    "etho-infoextrproje-jan23": {
+      "hosting": {
+        "ethos-FE": [
+          "etho-infoextrproje-jan23"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "environment": {
+            "firebase": "etho-infoextrproje-jan23"
+          }
+        }
+      }
+    },
+    "etho-infoextrproje-jan23-stg": {
+      "hosting": {
+        "ethos-FE": [
+          "etho-infoextrproje-jan23-stg"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "environment": {
+            "firebase": "etho-infoextrproje-jan23-stg"
+          }
+        }
+      }
+    }
+  }
+}

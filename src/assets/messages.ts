@@ -1,0 +1,31 @@
+export const MESSAGE = {
+  //SUCCESS MESSAGES
+  success_posted_report: 'Report posted successfully!',
+  success_added_feature: 'Manual label added successfully!',
+  success_removed_document: 'Document removed successfully!',
+  success_changed_document_type: 'Document type changed successfully!',
+  success_accepted_feature: 'Label accepted successfully!',
+  success_unaccepted_feature: 'Label unaccepted successfully!',
+  success_changed_status: 'Status changed successfully!',
+  success_login: 'Logged in successfully!',
+  success_upload: 'Files uploaded successfully!',
+  success_file_remove: 'File removed successfully!',
+  success_added_doc: 'Document added to the existing extraction successfully!',
+  success_added_extraction: 'Extraction added successfully!',
+  success_delete_label: 'Label deleted successfully!',
+  success_password_recovery: 'Password reset email sent, please check your email.',
+
+  //ERROR MESSAGES
+  error_posting_report: 'Error posting the report!',
+  error_getting_companies: 'Error retrieving companies!',
+  error_adding_feature: 'Error adding a new label!',
+  error_removing_document: 'Error removing the document!',
+  error_changing_document_type: 'Error changing document type!',
+  error_changing_status: 'Error changing status!',
+  error_password_match: 'Passwords do not match!',
+  error_login: 'Error logging in!',
+  error_pdf_only: 'Only PDF files are allowed!',
+  error_doctype: 'Document type is required!',
+  error_delete_label: 'Error deleting the label!',
+  error_password_recovery: 'Failed to send password reset email!',
+};

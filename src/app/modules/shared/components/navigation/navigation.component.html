@@ -1,0 +1,20 @@
+<nav>
+  <div class="main-nav">
+    <div class="logo-div">
+      <div class="logo">
+        <img [routerLink]="['/main/overview']" src="assets/images/logo.svg" alt="" />
+      </div>
+      <div class="line">|</div>
+      <div class="nav-txt">
+        <p>ESG Extract</p>
+      </div>
+    </div>
+    <div class="links">
+      <div class="d-flex justify-content-end">
+        <li routerLinkActive="active-link" [routerLink]="['/main/overview']">Overview</li>
+        <li routerLinkActive="active-link" [routerLink]="['/main/upload']">Upload</li>
+        <li style="color: #e30e4a; font-size: 18px" (click)="onLogout()">Log out</li>
+      </div>
+    </div>
+  </div>
+</nav>

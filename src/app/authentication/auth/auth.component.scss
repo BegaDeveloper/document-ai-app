@@ -1,0 +1,57 @@
+.auth {
+  background: var(--bg-color);
+  height: 100%;
+  .logo-div {
+    img {
+      margin: 5px 30px;
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    min-height: 60vh;
+    align-items: center;
+    .main-div {
+      width: 530px;
+      p {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 13px;
+        a {
+          color: blue;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+      .header {
+        margin: 25px 0;
+        h1 {
+          font-size: 55px;
+          font-weight: 500;
+        }
+      }
+      .form-div {
+        .submit-btn {
+          width: 100%;
+          padding: 14px;
+          font-size: 14px;
+          font-weight: 600;
+          background: var(--main-color);
+          border-radius: 5px;
+          color: white;
+          transition: all 0.5s;
+        }
+        .submit-btn:hover {
+          background: #c70f42;
+        }
+        .inpt-div {
+          display: flex;
+          flex-direction: column;
+          input {
+            margin-bottom: 15px;
+          }
+        }
+      }
+    }
+  }
+}

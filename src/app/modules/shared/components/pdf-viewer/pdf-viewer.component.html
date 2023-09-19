@@ -1,0 +1,128 @@
+<div class="flex" style="padding: 20px 0" *ngIf="isAddingFeature">
+  <div>
+    <h2>
+      Draw the bouding box
+      <span class="material-symbols-outlined"> arrow_downward </span>
+    </h2>
+  </div>
+  <div>
+    <p-button
+      (click)="isAddingFeature = false"
+      label="Cancel"
+      icon="pi pi-times"
+      iconPos="right"
+      styleClass="p-button-outlined p-button-secondary"
+    ></p-button>
+  </div>
+</div>
+
+<div class="pdf-controls">
+  <div class="inpt-search-div">
+    <div>
+      <input
+        *ngIf="!isAddingFeature"
+        type="text"
+        class="form-control search-bar"
+        [(ngModel)]="searchTerm"
+        placeholder="Search"
+        (input)="search(searchTerm)"
+      />
+    </div>
+    <div class="nav" *ngIf="!isAddingFeature">
+      <button (click)="searchPrevious()" [disabled]="!searchTerm" class="arrows-search">
+        <span class="material-symbols-outlined"> keyboard_arrow_up </span>
+      </button>
+      <div *ngIf="searchTerm.length">{{ currentMatch }} / {{ totalMatch }}</div>
+      <button (click)="searchNext()" [disabled]="!searchTerm" class="arrows-search">
+        <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+      </button>
+    </div>
+  </div>
+  <div class="docs">
+    <div>
+      <button
+        (click)="switchDocument(currentDocumentIndex - 1)"
+        [disabled]="currentDocumentIndex === 0"
+        pTooltip="Previous document"
+        tooltipPosition="top"
+      >
+        <span class="material-symbols-outlined arrow"> arrow_back_ios </span>
+      </button>
+    </div>
+    <div class="doc-num">
+      <p>{{ currentDocumentType }} ({{ currentDocumentIndex + 1 }})</p>
+    </div>
+    <div>
+      <button
+        pTooltip="Next document"
+        tooltipPosition="top"
+        (click)="switchDocument(currentDocumentIndex + 1)"
+        [disabled]="currentDocumentIndex === documents.length - 1"
+      >
+        <span class="material-symbols-outlined arrow"> arrow_forward_ios </span>
+      </button>
+    </div>
+  </div>
+
+  <div style="display: flex">
+    <div class="btns-div">
+      <div>
+        <button styleClass="my-button" (click)="goToPreviousPage()" ngClass="{'pdf-button': true}">
+          <span class="material-symbols-outlined arrow"> arrow_back_ios </span>
+        </button>
+      </div>
+      <div (click)="togglePageInput()" style="cursor: pointer">
+        <form (submit)="onSubmitPageInputForm(currentPage)" class="page-form">
+          <input
+            style="width: 40px; background: transparent; border: 1px solid grey; border-radius: 3px"
+            #pageInput
+            type="number"
+            min="1"
+            [max]="totalPages"
+            [(ngModel)]="currentPage"
+            name="currentPage"
+            class="page-input"
+          />
+          <span> / {{ totalPages }}</span>
+        </form>
+      </div>
+      <div>
+        <button styleClass="my-button" (click)="goToNextPage()" ngClass="{'pdf-button': true}">
+          <span class="material-symbols-outlined arrow"> arrow_forward_ios </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div 
+  class="pdf-container"
+  #pdfContainer
+  [ngClass]="{
+    'landscape-width': isLandscapeMode,
+    'potrait-width': !isLandscapeMode
+  }"
+>
+  <pdf-viewer
+    [src]="pdfSrc"
+    [rotation]="0"
+    [original-size]="true"
+    [show-all]="false"
+    [fit-to-page]="true"
+    [zoom]="pdfZoom"
+    [zoom-scale]="'page-width'"
+    [stick-to-page]="false"
+    [render-text]="true"
+    [external-link-target]="'blank'"
+    [autoresize]="true"
+    [show-borders]="false"
+    [(page)]="currentPage"
+    class="pdf"
+    id="pdfViewer"
+    (after-load-complete)="onPdfLoadComplete($event)"
+    (pagechanging)="onPageChange()"
+    (page-rendered)="onPageRendered()"
+    (text-layer-rendered)="onTextRendered()"
+  ></pdf-viewer>
+  <canvas id="pdfCanvas" #pdfCanvas></canvas>
+</div>

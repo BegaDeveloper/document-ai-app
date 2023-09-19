@@ -1,0 +1,95 @@
+.main {
+  min-height: 100vh;
+  background: var(--bg-color);
+  .center-div {
+    display: flex;
+    justify-content: center;
+
+    .dropdowns-div {
+      gap: 50px;
+      display: flex;
+      justify-content: space-evenly;
+      ::ng-deep .p-dropdown {
+        width: 260px;
+      }
+      .company,
+      .year {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  .tables-main {
+    justify-content: center;
+    margin-top: 60px;
+    gap: 50px;
+    .file-p {
+      padding-top: 20px;
+    }
+    .upload-div {
+      padding: 30px 50px;
+      border-radius: 10px;
+      background: #dfdee5;
+      display: flex;
+      .btn-div {
+        display: flex;
+        justify-content: center;
+        .choose-file-btn {
+          color: #ffffff;
+        }
+        ::ng-deep .my-button {
+          color: #ffffff;
+          background: var(--main-color);
+          border: 1px solid var(--main-color);
+          margin-bottom: 10px;
+        }
+      }
+      .dropzone {
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+        width: 320px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 0 auto;
+        span {
+          font-size: 14px;
+          opacity: 0.7;
+        }
+      }
+    }
+    .table-overview-div {
+      padding: 30px;
+      position: relative;
+      border-radius: 10px;
+      background: #ffffff;
+      height: 420px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      .submit-btn {
+        width: 100%;
+        .submit-button {
+          color: white;
+        }
+        ::ng-deep .my-button {
+          background-color: var(--main-color);
+          background: var(--main-color);
+          border: 1px solid var(--main-color);
+          color: #ffffff;
+          height: 40px;
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+      table {
+        width: 100%;
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

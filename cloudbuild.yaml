@@ -1,0 +1,9 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '$_REGISTRY/main/web', '-f', 'Dockerfile', '--build-arg=USERNAME=$_USERNAME',  '--build-arg=PASSWORD=$_PASSWORD' , '.' ]
+images:
+- '$_REGISTRY/main/web'
+substitutions:
+  _USERNAME: ""
+  _PASSWORD: ""
+  _REGISTRY: ""

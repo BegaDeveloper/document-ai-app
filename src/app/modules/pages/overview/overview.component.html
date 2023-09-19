@@ -1,0 +1,133 @@
+<div class="main">
+  <div class="table-div">
+    <div class="container">
+      <p-table
+        #dt1
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25]"
+        [value]="extractions"
+        dataKey="id"
+        [globalFilterFields]="['company_name']"
+      >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex search-div">
+            <span class="p-input-icon-left p-ml-auto">
+              <i class="pi pi-search"></i>
+              <input pInputText class="search-field" type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="company_name">Company <p-sortIcon field="company_name"></p-sortIcon></th>
+            <th>Year</th>
+            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-extraction let-expanded="expanded">
+          <tr>
+            <td>
+              <button
+                type="button"
+                pButton
+                pRipple
+                [pRowToggler]="extraction"
+                class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+              ></button>
+            </td>
+            <td>{{ extraction.company_name }}</td>
+            <td>{{ extraction.year }}</td>
+            <td>{{ extraction.status.toLowerCase() }}</td>
+            <td>
+              <button *ngIf="extraction.status === ExtractionStatusType.DONE" class="open-doc" (click)="openExtraction(extraction)">
+                <span class="material-symbols-outlined"> file_open </span>
+                &nbsp;Open
+              </button>
+              <button
+                *ngIf="extraction.status === ExtractionStatusType.PENDING"
+                class="open-doc"
+                (click)="updateStatus(extraction, ExtractionStatusType.READY_FOR_PROCESSING)"
+              >
+                <span class="material-symbols-outlined"> file_open </span>
+                Ready for processing
+              </button>
+              <button
+                *ngIf="extraction.status.toLowerCase() === ExtractionStatusType.READY_FOR_PROCESSING.toLowerCase()"
+                class="open-doc"
+                (click)="updateStatus(extraction, ExtractionStatusType.PENDING)"
+              >
+                <span class="material-symbols-outlined"> file_open </span>
+                Back to pending
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-extraction>
+          <tr>
+            <div class="p-p-3 container expand-force">
+              <p-table [value]="extraction.documents" dataKey="id">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="id">Document name</th>
+                    <th pSortableColumn="customer">Document type</th>
+                    <th pSortableColumn="date">
+                      <button class="add-doc-btn" (click)="onAddDocument(extraction)">
+                        <span class="material-symbols-outlined"> upload_file </span>&nbsp; Add document
+                      </button>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-document>
+                  <tr>
+                    <td>{{ document.name }}</td>
+                    <td>
+                      <ethos-field-wrapper>
+                        <ethos-dropdown
+                          [(ngModel)]="document.type"
+                          (ngModelChange)="updateDocumentType(extraction, document.id, document.type.name)"
+                          [options]="documentTypes"
+                        >
+                        </ethos-dropdown>
+                      </ethos-field-wrapper>
+                    </td>
+                    <td>
+                      <a (click)="openModal()">
+                        <img class="remove" src="assets/icons/remove_icon.svg" alt="" />
+                      </a>
+                    </td>
+                    <ethos-dialog
+                      [displayDialog]="isModalOpen"
+                      header="Are you sure you want to delete the document ?"
+                      saveButtonLabel="Save"
+                      [closable]="true"
+                      [saveButtonEnabled]="true"
+                      [modal]="true"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-footer">
+                          <ethos-save-cancel
+                            [saveButtonDisabled]="false"
+                            [loading]="false"
+                            saveLabel="'Delete'"
+                            cancelLabel="'Cancel'"
+                            (save)="removeDocument(extraction, document)"
+                            (cancel)="closeModal()"
+                          ></ethos-save-cancel>
+                        </div>
+                      </div>
+                    </ethos-dialog>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
